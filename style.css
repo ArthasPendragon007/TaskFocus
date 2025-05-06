@@ -5,8 +5,9 @@
   --cor-estudo: #ffca28;
   --cor-fundo: #f9f9f9;
   --cor-primaria: #3f51b5;
+  --cor-primaria-hover: #2c3e9e;
   --cor-texto: #333;
-  --cor-sucesso: #4caf50;
+  --cor-botao-secundario: #ddd;
 }
 
 body {
@@ -35,7 +36,7 @@ form {
   margin-bottom: 1.5rem;
 }
 
-input, select, button {
+input, select {
   padding: 0.6rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -45,12 +46,17 @@ input, select, button {
 button {
   background-color: var(--cor-primaria);
   color: white;
+  padding: 0.6rem 1rem;
   border: none;
-  transition: background 0.2s;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s ease;
+  position: relative;
 }
 
 button:hover {
-  background-color: #2c3e9e;
+  background-color: var(--cor-primaria-hover);
+  transform: scale(1.2);
 }
 
 ul {
@@ -67,11 +73,56 @@ li {
   padding: 1rem;
   border-radius: 6px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: visible;
+}
+
+li .actions {
+  display: flex;
+  gap: 0.5rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  overflow: visible;
+}
+
+li .actions button {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  justify-content: center;
+  background-color: var(--cor-botao-secundario);
+  color: var(--cor-texto);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, background 0.2s ease;
+  position: relative;
+  overflow: visible;
+}
+
+
+li .actions button::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 0.4em 0.6em;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+li .actions button:hover::after {
+  opacity: 1;
 }
 
 .concluido {
@@ -89,18 +140,6 @@ li {
   border-left-color: var(--cor-estudo);
 }
 
-li button {
-  padding: 0.4rem 0.6rem;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-}
-
-li button:hover {
-  opacity: 0.85;
-}
-
 #frase {
   font-style: italic;
   text-align: center;
@@ -111,4 +150,15 @@ label {
   display: inline-block;
   margin-top: 1rem;
   margin-right: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

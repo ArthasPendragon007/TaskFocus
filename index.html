@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TaskFocus</title>
+  <title>TaskFocus - Lembre.me</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" type="imagex/png" href="TaskFocus.png ">
 </head>
 <body>
-  <h1>🧠 TaskFocus</h1>
+  <h1>🧠 TaskFocus - Lembre.me</h1>
   <p id="frase">Frase motivacional do dia...</p>
 
   <form id="lembrete-form">
     <input type="text" id="descricao" placeholder="O que você precisa lembrar?" required>
-    <input type="date" id="data" required>
-    <input type="time" id="hora">
+    <input type="datetime-local" id="dataHora" required>
     <select id="categoria">
       <option value="pessoal">Pessoal</option>
       <option value="trabalho">Trabalho</option>
@@ -22,7 +22,7 @@
     <button type="submit">Salvar lembrete</button>
   </form>
 
-  <div>
+  <div style="margin-top: 1.5rem; background: #fff; padding: 1rem; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.1);">
     <label for="filtro-lembretes">Filtrar por status:</label>
     <select id="filtro-lembretes">
       <option value="todos">Todos</option>
