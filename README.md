@@ -72,7 +72,7 @@ Um mini-aplicativo feito para ajudar as pessoas a lembrarem das suas tarefas e s
 
 ## 🖼️ Preview
 
-![TaskFocus preview](./assets/preview.png)
+![TaskFocus preview](/assets/preview.png)
 
 ---
 
