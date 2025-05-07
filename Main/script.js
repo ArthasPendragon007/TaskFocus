@@ -1,4 +1,3 @@
-
 if (Notification.permission !== 'granted') {
   Notification.requestPermission();
 }
@@ -10,13 +9,43 @@ document.addEventListener('DOMContentLoaded', () => {
   const lista = document.getElementById('lista-lembretes');
   const filtro = document.getElementById('filtro-lembretes');
   const filtroCategoria = document.getElementById('filtro-categoria');
+  const categoriaSelect = document.getElementById('categoria');
   const frase = document.getElementById('frase');
 
+  function carregarCategorias() {
+    const categorias = JSON.parse(localStorage.getItem('categorias')) || [];
+    categoriaSelect.innerHTML = '';
+    categorias.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat.nome;
+      option.textContent = cat.nome;
+      categoriaSelect.appendChild(option);
+    });
+
+    filtroCategoria.innerHTML = '<option value="todas">Todas</option>';
+    categorias.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat.nome;
+      option.textContent = cat.nome;
+      filtroCategoria.appendChild(option);
+    });
+  }
+
   function carregarLembretes() {
-    const lembretes = JSON.parse(localStorage.getItem('lembretes')) || [];
+    let lembretes = JSON.parse(localStorage.getItem('lembretes')) || [];
+    const categoriasSalvas = JSON.parse(localStorage.getItem('categorias')) || [];
+
     const filtroSelecionado = filtro?.value || 'todos';
     const categoriaSelecionada = filtroCategoria?.value || 'todas';
     lista.innerHTML = '';
+
+    const agora = new Date();
+
+    lembretes.sort((a, b) => {
+      const dataA = new Date(`${a.data}T${a.hora || '00:00'}`);
+      const dataB = new Date(`${b.data}T${b.hora || '00:00'}`);
+      return dataA - dataB;
+    });
 
     lembretes.forEach((lembrete, index) => {
       if (filtroSelecionado === 'concluidos' && !lembrete.concluido) return;
@@ -26,21 +55,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const li = document.createElement('li');
       const dataHoraStr = `${lembrete.data}T${lembrete.hora || '00:00'}`;
       const dataHoraLembrete = new Date(dataHoraStr);
-      const agora = new Date();
-      let tempoRestante = '';
 
+      let tempoRestante = '';
       if (dataHoraLembrete > agora) {
         const diffMs = dataHoraLembrete - agora;
         const diffMin = Math.floor(diffMs / 60000);
         const horas = Math.floor(diffMin / 60);
         const minutos = diffMin % 60;
+        if (diffMin >= 0 && diffMin < 60 && !lembrete.concluido) {
+          li.classList.add('urgente');
+        }
         tempoRestante = ` (Faltam ${horas}h ${minutos}min)`;
       } else {
         tempoRestante = ' (Já passou)';
       }
 
-      li.textContent = `${lembrete.descricao} - ${lembrete.data} ${lembrete.hora || ''}${tempoRestante}`;
-      li.classList.add('categoria-' + (lembrete.categoria || 'padrao'));
+      const conteudoTexto = document.createElement('span');
+      conteudoTexto.textContent = `${lembrete.descricao} - ${lembrete.data} ${lembrete.hora || ''}${tempoRestante}`;
+      li.appendChild(conteudoTexto);
+
+      // Aplicar cor da categoria
+      const categoriaInfo = categoriasSalvas.find(cat => cat.nome === lembrete.categoria);
+      if (categoriaInfo) {
+        li.style.borderLeft = `8px solid ${categoriaInfo.cor}`;
+      }
+
+      if (lembrete.concluido) li.classList.add('concluido');
 
       const actions = document.createElement('div');
       actions.classList.add('actions');
@@ -49,16 +89,16 @@ document.addEventListener('DOMContentLoaded', () => {
       copiarBtn.textContent = '📋';
       copiarBtn.title = 'Copiar';
       copiarBtn.onclick = () => {
-        navigator.clipboard.writeText(`${lembrete.descricao} - ${lembrete.data} ${lembrete.hora || ''}`)
+        navigator.clipboard.writeText(conteudoTexto.textContent)
           .then(() => alert('Lembrete copiado!'))
           .catch(() => alert('Erro ao copiar lembrete.'));
       };
 
-      const concluirBtn = document.createElement('button');
-      concluirBtn.textContent = '✅';
-      concluirBtn.title = 'Concluir';
-      concluirBtn.onclick = () => {
-        lembrete.concluido = true;
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = lembrete.concluido ? '↩️' : '✅';
+      toggleBtn.title = lembrete.concluido ? 'Marcar como pendente' : 'Concluir';
+      toggleBtn.onclick = () => {
+        lembrete.concluido = !lembrete.concluido;
         localStorage.setItem('lembretes', JSON.stringify(lembretes));
         carregarLembretes();
       };
@@ -72,12 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
         carregarLembretes();
       };
 
-      if (lembrete.concluido) {
-        li.classList.add('concluido');
-      }
-
       actions.appendChild(copiarBtn);
-      actions.appendChild(concluirBtn);
+      actions.appendChild(toggleBtn);
       actions.appendChild(apagarBtn);
       li.appendChild(actions);
       lista.appendChild(li);
@@ -111,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const descricao = document.getElementById('descricao').value;
     const dataHoraStr = document.getElementById('dataHora').value;
     const [data, hora] = dataHoraStr.split('T');
-    const categoria = document.getElementById('categoria')?.value || 'padrao';
+    const categoria = categoriaSelect?.value || 'padrao';
     const novo = { descricao, data, hora, categoria };
     const lembretes = JSON.parse(localStorage.getItem('lembretes')) || [];
     lembretes.push(novo);
@@ -134,9 +170,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  carregarCategorias();
   carregarLembretes();
   carregarFrase();
   verificarNotificacoes();
+
   setInterval(() => {
     carregarLembretes();
     verificarNotificacoes();
