@@ -16,6 +16,7 @@ body {
   color: var(--cor-texto);
   margin: 0;
   padding: 140px;
+  padding-top: 180px;
   max-width: 800px;
   margin-inline: auto;
 
@@ -72,6 +73,25 @@ button {
 button:hover {
   background-color: var(--cor-primaria-hover);
   transform: scale(1.025);
+}
+
+.button-categorias {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--cor-primaria, #3f51b5);
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 0.7rem 0;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button-categorias:hover {
+  background-color: #303f9f;
+  transform: translateY(-2px);
 }
 
 ul {

@@ -2,29 +2,32 @@
 
 Um mini-aplicativo feito para ajudar as pessoas a lembrarem das suas tarefas e se manterem motivadas!
 
-## 👨‍💻 Desenvolvedores
-- Lucas Oliverio dos Santos
-- Luiz Arthur de Barros
+## 🔍 Visão Geral
 
-## 💡 Ideia
+- 📅 Criação de lembretes com data, hora e categoria personalizada
+- ⏳ Contador regressivo com detecção de urgência visual
+- 🧠 Frase motivacional ao abrir a aplicação
+- 🔔 Notificações automáticas no momento exato do lembrete
+- 📋 Botões para copiar, concluir ou excluir lembretes
+- 🔍 Filtros por status e categoria
+- 🖌️ Cores personalizadas por categoria
+- 🎵 Alerta sonoro com áudio próprio (`alerta.mp3`)
+- 💾 Dados salvos no `localStorage` 
 
-O projeto foi desenvolvido com o objetivo de ajudar os usuários a:
+## 🧠 Funcionalidades em Detalhe
 
-1. **Criar lembretes com data e hora**
-2. **Receber uma frase motivacional ao abrir a aplicação**
-3. **Receber notificações no dia do lembrete**
-4. **Copiar lembrete com clipboard**
-5. **Filtrar lembretes por status (pendentes/concluídos)**
+| Recurso                        | Descrição |
+|-------------------------------|-----------|
+| **Lembretes com hora/data**   | Registra e exibe lembretes com countdown |
+| **Frases motivacionais**      | Carregadas de um JSON local via `fetch` |
+| **Categorias customizadas**   | Editáveis via página externa |
+| **Filtros combinados**        | Por status (pendente/concluído) e categoria |
+| **Notificações nativas**      | Usando a API `Notification` + áudio |
+| **Estilo visual moderno**     | Interface responsiva, animações suaves e efeito blur no topo |
+| **Ações rápidas**             | Copiar texto, marcar como concluído, reverter ou excluir |
+-----------------------------------------------
 
-## 📱 Funcionalidades
-
-- Lista de lembretes com contador regressivo
-- Frase motivacional ao carregar a página
-- Botões para copiar, concluir ou excluir lembretes
-- Filtros para visualização
-- Animações suaves e interface responsiva
-
-## ✅ Instruções de Uso
+## 💻 Instruções de Uso
 
 1. Abra o arquivo index.html no navegador (Chrome, Firefox ou Edge)
 2. Adicione um lembrete preenchendo:
@@ -45,10 +48,11 @@ O projeto foi desenvolvido com o objetivo de ajudar os usuários a:
 
 ## 🌐 Browser APIs Utilizadas
 
-- `fetch` (para frases motivacionais no localstorage)
-- `clipboard`
-- `Notification`
-- `localStorage`
+  - `fetch` (para frases motivacionais no localstorage)
+  - `Clipboard`
+  - `Notification`
+  - `localStorage`
+  - `setInterval`
 
 ## ✅ Tecnologias
 
@@ -56,7 +60,27 @@ O projeto foi desenvolvido com o objetivo de ajudar os usuários a:
 - CSS3 (Flexbox e animações)
 - JavaScript puro
 
-## 💻 Como Rodar o Projeto
+## 🚀 Como Executar
 
-1. Baixe os arquivos: index.html, style.css, script.js, frases.json
-2. Abra o arquivo index.html no navegador
+1. Baixe os arquivos do repositório.
+2. Certifique-se de que os arquivos estejam no mesmo diretório:
+3. Dê um duplo clique no `index.html` ou abra no seu navegador preferido.
+4. Comece a adicionar seus lembretes! 🧠
+
+
+---
+
+## 🖼️ Preview
+
+![TaskFocus preview](./assets/preview.png)
+
+---
+
+## 👥 Desenvolvedores
+
+- Lucas Oliverio dos Santos
+- Luiz Arthur de Barros
+
+---
+
+Curtiu o projeto? Contribuições, sugestões e melhorias são muito bem-vindas!

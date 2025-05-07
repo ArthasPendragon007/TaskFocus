@@ -2,7 +2,8 @@ if (Notification.permission !== 'granted') {
   Notification.requestPermission();
 }
 
-const audio = new Audio('alerta.mp3');
+const audio = document.getElementById('alerta-audio');
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('lembrete-form');
