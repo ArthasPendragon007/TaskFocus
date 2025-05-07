@@ -110,6 +110,7 @@ li {
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   position: relative;
   overflow: visible;
+  animation: fadeIn 0.5s forwards;
 }
 
 li .actions {
@@ -191,28 +192,7 @@ label {
   background-color: #ffcccc !important;
   animation: pulsar 1s infinite;
 }
-.status {
-  display: inline-block;
-  padding: 0.2em 0.6em;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 0.85em;
-}
 
-.status-pendente {
-  background-color: #ffeb3b;
-  color: #000;
-}
-
-.status-concluido {
-  background-color: #4caf50;
-  color: #fff;
-}
-
-.status-urgente {
-  background-color: #f44336;
-  color: #fff;
-}
 #filtro {
   margin-top: 1.5rem; 
   background: #fff; 

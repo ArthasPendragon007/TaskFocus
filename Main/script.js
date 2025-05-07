@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function carregarFrase() {
     try {
-      const res = await fetch("frases.json");
+      const res = await fetch("./main/frases.json");
       const data = await res.json();
       const fraseAleatoria = data[Math.floor(Math.random() * data.length)];
       frase.textContent = `"${fraseAleatoria.text}" - ${fraseAleatoria.author}`;

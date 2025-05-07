@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TaskFocus</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" type="imagex/png" href="../assets/TaskFocus.png ">
+  <link rel="stylesheet" href="./Main/style.css">
+  <link rel="shortcut icon" type="imagex/png" href="./assets/TaskFocus.png">
 </head>
 <body>
   <header id="topo">
@@ -18,9 +18,6 @@
     <input type="text" id="descricao" placeholder="O que você precisa lembrar?" required>
     <input type="datetime-local" id="dataHora" required>
     <select id="categoria">
-      <option value="pessoal">Pessoal</option>
-      <option value="trabalho">Trabalho</option>
-      <option value="estudo">Estudo</option>
     </select>
     <button type="submit">Salvar lembrete</button>
   </form>
@@ -36,10 +33,10 @@
     <select id="filtro-categoria">
     </select>
   </div>
-  <a class="button-categorias" href="/Categorias/categorias.html">Gerenciar Categorias</a>
+  <a class="button-categorias" href="./Categorias/categorias.html">Gerenciar Categorias</a>
   <ul id="lista-lembretes"></ul>
-  <audio id="alerta-audio" src="../assets/alerta.mp3" preload="auto"></audio>
+  <audio id="alerta-audio" src="./assets/alerta.mp3" preload="auto"></audio>
 
-  <script src="script.js"></script>
+  <script src="./Main/script.js"></script>
 </body>
 </html>
