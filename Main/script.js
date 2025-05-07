@@ -35,13 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function carregarLembretes() {
     let lembretes = JSON.parse(localStorage.getItem('lembretes')) || [];
     const categoriasSalvas = JSON.parse(localStorage.getItem('categorias')) || [];
-
     const filtroSelecionado = filtro?.value || 'todos';
     const categoriaSelecionada = filtroCategoria?.value || 'todas';
     lista.innerHTML = '';
 
+    //Ordena os Horarios de ordem ascendente
     const agora = new Date();
-
     lembretes.sort((a, b) => {
       const dataA = new Date(`${a.data}T${a.hora || '00:00'}`);
       const dataB = new Date(`${b.data}T${b.hora || '00:00'}`);
@@ -49,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     lembretes.forEach((lembrete, index) => {
+      //Mostra as Categorias e Filtros selecionadas
       if (filtroSelecionado === 'concluidos' && !lembrete.concluido) return;
       if (filtroSelecionado === 'pendentes' && lembrete.concluido) return;
       if (categoriaSelecionada !== 'todas' && lembrete.categoria !== categoriaSelecionada) return;
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const li = document.createElement('li');
       const dataHoraStr = `${lembrete.data}T${lembrete.hora || '00:00'}`;
       const dataHoraLembrete = new Date(dataHoraStr);
-
+      //Mudança entre [Urgente, Faltam {X}hrs {Y}Min, Já Passou]
       let tempoRestante = '';
       if (dataHoraLembrete > agora) {
         const diffMs = dataHoraLembrete - agora;
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         tempoRestante = ' (Já passou)';
       }
-
+      //Criando o Card
       const conteudoTexto = document.createElement('span');
       conteudoTexto.textContent = `${lembrete.descricao} - ${lembrete.data} ${lembrete.hora || ''}${tempoRestante}`;
       li.appendChild(conteudoTexto);
@@ -80,12 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (categoriaInfo) {
         li.style.borderLeft = `8px solid ${categoriaInfo.cor}`;
       }
-
+      //Mudança do ClassList
       if (lembrete.concluido) li.classList.add('concluido');
 
+      //Criação dos Botões
       const actions = document.createElement('div');
       actions.classList.add('actions');
-
       const copiarBtn = document.createElement('button');
       copiarBtn.textContent = '📋';
       copiarBtn.title = 'Copiar';
@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
           .then(() => alert('Lembrete copiado!'))
           .catch(() => alert('Erro ao copiar lembrete.'));
       };
-
       const toggleBtn = document.createElement('button');
       toggleBtn.textContent = lembrete.concluido ? '↩️' : '✅';
       toggleBtn.title = lembrete.concluido ? 'Marcar como pendente' : 'Concluir';
@@ -136,13 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
+  //Notificação
   function enviarNotificacao(texto) {
     if (Notification.permission === 'granted') {
       new Notification('🔔 Lembre.me', { body: texto });
     }
   }
-
+  // Envio de Informações
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const descricao = document.getElementById('descricao').value;
@@ -156,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.reset();
     carregarLembretes();
   });
-
+  // Mudar Filtros
   if (filtro) filtro.addEventListener('change', carregarLembretes);
   if (filtroCategoria) filtroCategoria.addEventListener('change', carregarLembretes);
 
