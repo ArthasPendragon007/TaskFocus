@@ -1,8 +1,5 @@
 
 :root {
-  --cor-pessoal: #42a5f5;
-  --cor-trabalho: #66bb6a;
-  --cor-estudo: #ffca28;
   --cor-fundo: #f9f9f9;
   --cor-primaria: #3f51b5;
   --cor-primaria-hover: #2c3e9e;
@@ -165,16 +162,6 @@ li .actions button:hover::after {
   opacity: 0.6;
 }
 
-.categoria-pessoal {
-  border-left-color: var(--cor-pessoal);
-}
-.categoria-trabalho {
-  border-left-color: var(--cor-trabalho);
-}
-.categoria-estudo {
-  border-left-color: var(--cor-estudo);
-}
-
 #frase {
   font-style: italic;
   text-align: center;
@@ -206,9 +193,4 @@ label {
   100% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.4); }
 }
 
-@media (max-width: 600px) {
-  body {
-    padding: 1rem;
-  }
-}
 
