@@ -80,7 +80,3 @@ Um mini-aplicativo feito para ajudar as pessoas a lembrarem das suas tarefas e s
 
 - Lucas Oliverio dos Santos
 - Luiz Arthur de Barros
-
----
-
-Curtiu o projeto? Contribuições, sugestões e melhorias são muito bem-vindas!
